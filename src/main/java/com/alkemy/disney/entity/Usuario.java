@@ -1,6 +1,5 @@
 package com.alkemy.disney.entity;
 
-
 import javax.persistence.*;
 import lombok.Data;
 

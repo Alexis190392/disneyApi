@@ -1,6 +1,6 @@
 package com.alkemy.disney.entity;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 import javax.persistence.*;
 import lombok.Data;
@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Data
 @Entity
 @Table(name = "film")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Film {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -18,10 +19,8 @@ public class Film {
     @Temporal(TemporalType.DATE)
     private Date fecha_creacion;
     private Integer calificacion;
-    @OneToMany
-    private ArrayList<Personaje> personajes;
     @OneToOne
     private Imagen imagen;
-    @OneToMany
+    @OneToOne
     private Genero genero;
 }
