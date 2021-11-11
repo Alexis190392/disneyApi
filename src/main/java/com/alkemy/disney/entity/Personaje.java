@@ -10,10 +10,11 @@ public class Personaje{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Integer personaje_id;
+    
     private String nombre;
     private Integer edad;
     private Double peso;
     private String historia;
-    @OneToOne
-    private Imagen imagen;
+    //@OneToOne
+    //private Imagen imagen;
 }

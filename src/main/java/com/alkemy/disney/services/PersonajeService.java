@@ -16,6 +16,12 @@ public class PersonajeService {
     
     @Transactional
     public Personaje crearPersonaje(Personaje p){
+        System.out.println("\nValores Servicio:\n"
+                + p.getNombre() + "\n"
+                + p.getEdad() + "\n"
+                + p.getPeso() + "\n"
+                + p.getHistoria() + "\n"
+                + "\n");
         return pr.save(p);
     }
     
