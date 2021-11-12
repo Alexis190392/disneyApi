@@ -24,12 +24,12 @@ public class PersonajeController {
     
     @PostMapping()
     public Personaje guardarPersonaje(@RequestBody Personaje personaje){
-        System.out.println("\nValores Controller:\n"
-                + personaje.getNombre() + "\n"
-                + personaje.getEdad() + "\n"
-                + personaje.getPeso() + "\n"
-                + personaje.getHistoria() + "\n"
-                + "\n");
+//        System.out.println("\nValores Controller:\n"
+//                + personaje.getNombre() + "\n"
+//                + personaje.getEdad() + "\n"
+//                + personaje.getPeso() + "\n"
+//                + personaje.getHistoria() + "\n"
+//                + "\n");
         return ps.crearPersonaje(personaje);
     }
     
