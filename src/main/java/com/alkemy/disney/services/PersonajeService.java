@@ -1,5 +1,6 @@
 package com.alkemy.disney.services;
 
+import com.alkemy.disney.entity.Film;
 import com.alkemy.disney.entity.Personaje;
 import com.alkemy.disney.repository.PersonajeRepository;
 import java.util.List;
@@ -44,12 +45,15 @@ public class PersonajeService {
     
     public List<Personaje> findByName(String name){
         return pr.findByName("%" + name + "%");
-    }
-    
-    
+    }    
     
     public List<Personaje> findByAge(Integer age){
         return pr.findByAge(age);
+    }
+    
+    public List<Personaje> findByFilm(Integer movie_id){
+        return pr.findByMovie(movie_id);
+        
     }
     
     
