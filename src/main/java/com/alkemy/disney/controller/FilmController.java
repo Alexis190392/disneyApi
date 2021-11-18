@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/movies")
@@ -37,8 +38,9 @@ public class FilmController {
     }
     
     @PostMapping()
-    public Film guardarFilm(@RequestBody Film film){
-        return fs.crearFilm(film);
+    public Film guardarFilm(@RequestBody Film film,
+                            @RequestParam(required = false) MultipartFile image){
+        return fs.crearFilm(film,image);
     }
     
     @GetMapping("/delete")

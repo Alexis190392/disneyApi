@@ -1,28 +1,34 @@
 package com.alkemy.disney.services;
 
 import com.alkemy.disney.entity.Film;
+import com.alkemy.disney.entity.Imagen;
 import com.alkemy.disney.repository.FilmRepository;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
 public class FilmService {
     
     @Autowired
     private FilmRepository fr;
+    @Autowired
+    private ImagenService imgs;
     
     @Transactional
-    public Film crearFilm(Film f){
+    public Film crearFilm(Film f, MultipartFile image){
+        Imagen i = imgs.save(image);
+        f.setImagen(i);
         return fr.save(f);
     }
     
     @Transactional
-    public void modificarFilm(Film f){
+    public void modificarFilm(Film f, MultipartFile image){
         Film film = fr.findById(f.getFilm_id()).get();
         if(film != null){
             film = f;
-            crearFilm(film);
+            crearFilm(film,image);
         }         
     }
     
@@ -42,6 +48,8 @@ public class FilmService {
     public Boolean eliminarFilm(Integer film_id){
         Film f = fr.findById(film_id).get();
         try{
+            imgs.delete(f.getImagen());
+            f.setImagen(null);
             fr.delete(f);
             return true;
         } catch(Exception e){
