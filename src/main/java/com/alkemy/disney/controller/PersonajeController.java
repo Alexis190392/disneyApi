@@ -35,13 +35,13 @@ public class PersonajeController {
     }
     
     @PostMapping()
-    public Personaje guardarPersonaje(@RequestBody Personaje personaje){
-        return ps.crearPersonaje(personaje);
+    public Personaje guardarPersonaje(@RequestBody Personaje character){
+        return ps.crearPersonaje(character);
     }
     
     
     @GetMapping("/delete")
-    public Boolean eliminarPersonaje(@RequestParam Integer character_id){
+    public Boolean eliminarPersonaje(@RequestParam(required = true) Integer character_id){
         return ps.eliminarPersonaje(character_id);
     }
     

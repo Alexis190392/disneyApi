@@ -48,4 +48,17 @@ public class GeneroService {
         }
         
     }
+
+    public Boolean eliminarGenero(Integer gender_id) {
+        Genero g = gr.findById(gender_id).get();
+        try{
+            gr.delete(g);
+            return true;
+        } catch(Exception e){
+            return false;
+        }   
+        
+    }
+
+    
 }
