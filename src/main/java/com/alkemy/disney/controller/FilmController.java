@@ -25,7 +25,7 @@ public class FilmController {
                                   @RequestParam(required = false) String order){
         
         if(name != null){
-            return fs.findByName(name);
+            return fs.findByTitle(name);
         } 
         if(genre !=null){
             return fs.findByGenero(genre);
