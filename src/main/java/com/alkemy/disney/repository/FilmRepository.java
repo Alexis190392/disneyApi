@@ -11,4 +11,13 @@ import org.springframework.stereotype.Repository;
 public interface FilmRepository extends JpaRepository<Film, Integer>{
     @Query("SELECT f FROM Film f where f.titulo like :title")
     List<Film> findByTitle(@Param("title") String title);
+    
+    @Query("SELECT f FROM Film f where f.nombre like :name")
+    List<Film> findByName(@Param("name") String name);
+
+    @Query("SELECT f from Film f where genero.genero_id = :genre")
+    List<Film> findByGenero(@Param("genre") Integer genre);
+
+    @Query("SELECT f from Film f order by :order")
+    List<Film> orderBy(@Param("order") String order);
 }

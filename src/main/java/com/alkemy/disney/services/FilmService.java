@@ -39,7 +39,8 @@ public class FilmService {
     }
     
     @Transactional
-    public Boolean eliminarFilm(Film f){
+    public Boolean eliminarFilm(Integer film_id){
+        Film f = fr.findById(film_id).get();
         try{
             fr.delete(f);
             return true;
@@ -47,6 +48,23 @@ public class FilmService {
             return false;
         }
         
+    }
+
+    public List<Film> findByName(String name) {
+        return fr.findByName("%" + name + "%");
+    }
+
+    public List<Film> findByGenero(Integer genre) {
+        return fr.findByGenero(genre);
+    }
+
+    public List<Film> order(String order) {
+        try{
+            order = order.toUpperCase();
+            return fr.orderBy(order);
+        }catch (Exception e){
+            return listAll();
+        }
     }
     
 }

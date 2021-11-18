@@ -17,12 +17,6 @@ public class PersonajeService {
     
     @Transactional
     public Personaje crearPersonaje(Personaje p){
-//        System.out.println("\nValores Servicio:\n"
-//                + p.getNombre() + "\n"
-//                + p.getEdad() + "\n"
-//                + p.getPeso() + "\n"
-//                + p.getHistoria() + "\n"
-//                + "\n");
         return pr.save(p);
     }
     
@@ -58,14 +52,13 @@ public class PersonajeService {
     
     
     @Transactional
-    public Boolean eliminarPersonaje(Personaje p){
+    public Boolean eliminarPersonaje(Integer id){
+        Personaje p = pr.findById(id).get();
         try{
             pr.delete(p);
             return true;
         } catch(Exception e){
             return false;
-        }
-        
+        }   
     }
-    
 }
