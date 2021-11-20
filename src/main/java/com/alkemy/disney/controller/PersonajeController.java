@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/characters")
@@ -18,20 +20,30 @@ public class PersonajeController {
     private PersonajeService ps;
     
     @GetMapping()
-    public List<Personaje> listarPersonajes(){
-        return ps.listAll();
+    public List<Personaje> listarPersonajes(@RequestParam(required = false) String name, 
+                                            @RequestParam(required = false) Integer age, 
+                                            @RequestParam(required = false) Integer movies ){
+        if(name != null){
+            return ps.findByName(name);
+        }else if(age !=null){
+            return ps.findByAge(age);
+        }else if(movies != null){
+            return ps.findByFilm(movies);
+        }else{
+            return ps.listAll();
+        }
+        
     }
     
     @PostMapping()
-    public Personaje guardarPersonaje(@RequestBody Personaje personaje){
-//        System.out.println("\nValores Controller:\n"
-//                + personaje.getNombre() + "\n"
-//                + personaje.getEdad() + "\n"
-//                + personaje.getPeso() + "\n"
-//                + personaje.getHistoria() + "\n"
-//                + "\n");
-        return ps.crearPersonaje(personaje);
+    public Personaje guardarPersonaje(@RequestBody Personaje character,
+                                      @RequestParam(required = false) MultipartFile image){
+        return ps.crearPersonaje(character, image);
     }
-    
+       
+    @GetMapping("/delete")
+    public Boolean eliminarPersonaje(@RequestParam(required = true) Integer character_id){
+        return ps.eliminarPersonaje(character_id);
+    }
     
 }

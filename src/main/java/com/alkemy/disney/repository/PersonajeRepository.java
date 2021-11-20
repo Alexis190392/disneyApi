@@ -17,5 +17,8 @@ public interface PersonajeRepository extends JpaRepository<Personaje, Integer>{
     List<Personaje> findByFilm(@Param("query") String query);
 
     @Query("SELECT p FROM Personaje p where p.edad = :age")
-    public List<Personaje> findByAge(@Param("age") Integer age);
+    List<Personaje> findByAge(@Param("age") Integer age);
+    
+    @Query("SELECT p from Personaje p where film.film_id = :movie_id")
+    List<Personaje> findByMovie(@Param("movie_id") Integer movie_id);
 }
