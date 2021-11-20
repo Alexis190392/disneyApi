@@ -57,11 +57,13 @@ public class PersonajeService {
         
     @Transactional
     public Boolean eliminarPersonaje(Integer id){
-        Personaje p = pr.findById(id).get();
+//        Personaje p = pr.findById(id).get();
         try{
-            imgs.delete(p.getImagen());
-            p.setImagen(null);
-            pr.delete(p);
+//            imgs.delete(p.getImagen());
+//            p.setImagen(null);
+//            pr.delete(p);
+            
+            pr.deleteById(id);
             return true;
         } catch(Exception e){
             return false;

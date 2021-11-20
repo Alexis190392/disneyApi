@@ -21,23 +21,47 @@ public class UsuarioService implements UserDetailsService{
     
     @Autowired
     private UsuarioRepository ur;
+    @Autowired
+    private MailService ms;
     
     @Transactional
-    public Usuario crearUsuario(Usuario usuario){
-        return ur.save(usuario);
-    }
-    
-    @Transactional
-    public Usuario crearUsuario(String mail, String username, String password){
-        Usuario u = new Usuario();
+    public Usuario crearUsuario(Usuario u){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        
-        u.setEmail(mail);
-        u.setUsername(username);
-        u.setPassword(encoder.encode(password));
+        u.setPassword(encoder.encode(u.getPassword()));
         u.setRol(Role.USER);
+        //faltan validaciones
+        
+        
+        //puebas para mail
+        String destinatario = u.getEmail();
+        String asunto = "Soy un mensaje de prueba";
+        String contenido = "Username: " + u.getUsername() + "\nPassword: " + u.getPassword() + "\nMail de registro: " + u.getEmail();
+        
+        
+        ms.enviarMail(destinatario, asunto, contenido);
+        
         return ur.save(u);
     }
+    
+//    @Transactional
+//    public Usuario crearUsuario(String mail, String username, String password){
+//        Usuario u = new Usuario();
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        
+//        u.setEmail(mail);
+//        u.setUsername(username);
+//        u.setPassword(encoder.encode(password));
+//        u.setRol(Role.USER);
+//        
+//        //puebas para mail
+//        String destinatario = "alexis19031992@gmail.com";
+//        String asunto = "Soy un mensaje de prueba";
+//        String contenido = "Username: " + username + "\nPassword: " + password + "\nMail de registro: " + mail;
+//        
+//        
+//        ms.enviarMail(destinatario, asunto, contenido);
+//        return ur.save(u);
+//    }
     
     public Usuario findByUsername(String username){
         return ur.findByUsername(username);
