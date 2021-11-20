@@ -1,9 +1,7 @@
 package com.alkemy.disney.services;
 
-import com.alkemy.disney.entity.Film;
 import com.alkemy.disney.entity.Imagen;
 import com.alkemy.disney.entity.Personaje;
-import com.alkemy.disney.repository.ImagenRepository;
 import com.alkemy.disney.repository.PersonajeRepository;
 import java.util.List;
 import java.util.Optional;
