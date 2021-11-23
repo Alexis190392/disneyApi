@@ -1,7 +1,6 @@
 package com.alkemy.disney;
 
 import com.alkemy.disney.services.UsuarioService;
-import java.security.CryptoPrimitive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,13 +19,14 @@ public class Security extends WebSecurityConfigurerAdapter{
     private UsuarioService us;
     
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(us).passwordEncoder(new BCryptPasswordEncoder());
+    public void configureGlobal(AuthenticationManagerBuilder amb) throws Exception{
+        amb.userDetailsService(us).passwordEncoder(new BCryptPasswordEncoder());
     }
-
+    
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/*").permitAll()
+        http.authorizeRequests().antMatchers("/*").hasAnyRole("ROLE_USER")
                 .and()
                     .formLogin()
                         .loginPage("/login")

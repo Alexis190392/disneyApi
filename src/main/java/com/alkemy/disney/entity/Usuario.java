@@ -1,13 +1,15 @@
 package com.alkemy.disney.entity;
 
 import com.alkemy.disney.enums.Role;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario /*implements UserDetails*/{
     
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -16,7 +18,6 @@ public class Usuario {
     private String email;
     private String username;
     private String password;
-    @Enumerated
-    private Role rol;
-    
+    private ArrayList<Role> rol;
+
 }

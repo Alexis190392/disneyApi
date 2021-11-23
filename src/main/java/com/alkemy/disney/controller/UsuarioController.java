@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,7 +20,6 @@ public class UsuarioController {
     
     @PostMapping("/register")
     public Usuario registro(@RequestBody Usuario usuario){
-        
         return us.crearUsuario(usuario);
     }
     
@@ -30,13 +28,15 @@ public class UsuarioController {
                                 @RequestParam(required = false) String error,
                                 @RequestParam(required = false) String username,
                                 @RequestParam(required = false) String logout){
+        
         if(error != null){
             model.addAttribute("error", "Usuario o contraseña invalido");
+            return "error";
         }
         if(username != null){
             model.addAttribute("username",username);
         }
-        return "login";
+        return "redirect:/";
     }
     
     
