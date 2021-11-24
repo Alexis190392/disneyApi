@@ -26,23 +26,24 @@ public class Security extends WebSecurityConfigurerAdapter{
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/*").hasAnyRole("ROLE_USER")
-                .and()
-                    .formLogin()
-                        .loginPage("/login")
-                        .usernameParameter("username")
-                        .passwordParameter("password")
-                        .defaultSuccessUrl("/")
-                        .loginProcessingUrl("/logincheck")
-                        .failureUrl("/login?error=error")
-                    .permitAll()
-                .and()
-                    .logout()
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
-                .and()
-                    .csrf().disable();
-                
+//      http.authorizeRequests().antMatchers("/*").hasAnyRole("ROLE_USER")
+        http.authorizeRequests().antMatchers("/*").permitAll()
+            .and()
+                .formLogin()
+                    .loginPage("/login")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/")
+                    .loginProcessingUrl("/logincheck")
+                    .failureUrl("/login?error=error")
+                .permitAll()
+            .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout")
+            .and()
+                .csrf().disable();
+
     }
     
     

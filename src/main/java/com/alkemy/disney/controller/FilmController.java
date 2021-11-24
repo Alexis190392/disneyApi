@@ -40,7 +40,7 @@ public class FilmController {
     
     @PostMapping()
     public Film guardarFilm(@RequestBody Film film,
-                            @RequestParam(required = false) MultipartFile image){
+                            @RequestParam(required = false) MultipartFile image) throws Exception{
         return fs.crearFilm(film,image);
     }
     

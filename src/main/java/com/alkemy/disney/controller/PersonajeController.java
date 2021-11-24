@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,13 +38,13 @@ public class PersonajeController {
     
     @PostMapping()
     public Personaje guardarPersonaje(@RequestBody Personaje character,
-                                      @RequestParam(required = false) MultipartFile image){
+                                      @RequestParam(required = false) MultipartFile image) throws Exception{
         return ps.crearPersonaje(character, image);
     }
        
     @DeleteMapping("/delete")
-    public Boolean eliminarPersonaje(@RequestParam(required = true) Integer character_id){
-         return ps.eliminarPersonaje(character_id);
+    public void eliminarPersonaje(@RequestParam(required = true) Integer character_id) throws Exception{
+         ps.eliminarPersonaje(character_id);
     }
     
     

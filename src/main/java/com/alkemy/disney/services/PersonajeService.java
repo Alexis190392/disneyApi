@@ -19,18 +19,37 @@ public class PersonajeService {
     private ImagenService imgs;
     
     @Transactional
-    public Personaje crearPersonaje(Personaje p, MultipartFile image){
-        Imagen i = imgs.save(image);
-        p.setImagen(i);
-        return pr.save(p);
+    public Personaje crearPersonaje(Personaje p, MultipartFile imagen) throws Exception{
+        Personaje per = new Personaje();
+        
+        
+        if(p.getEdad() == null && p.getEdad()<=0){
+            throw new Exception("Edad no válida.");
+        }
+        if(p.getNombre() == null){
+            throw new Exception("Ingresar nombre válido");
+        }
+        if(p.getPeso() <= 0d){
+            throw new Exception("Peso no permitido");
+        }
+        
+        per.setNombre(p.getNombre());
+        per.setEdad(p.getEdad());
+        per.setPeso(p.getPeso());
+        per.setFilm(p.getFilm());
+        per.setHistoria(p.getHistoria());
+        
+        Imagen i = imgs.save(imagen);
+        per.setImagen(i);
+        return pr.save(per);
     }
     
     @Transactional
-    public void modificarPersonaje(Personaje p, MultipartFile image){
+    public void modificarPersonaje(Personaje p, MultipartFile imagen) throws Exception{
         Personaje personaje = pr.findById(p.getPersonaje_id()).get();
         if(personaje != null){
             personaje = p;
-            crearPersonaje(personaje,image);
+            crearPersonaje(personaje,imagen);
         }         
     }
     
@@ -56,17 +75,12 @@ public class PersonajeService {
     }
         
     @Transactional
-    public Boolean eliminarPersonaje(Integer id){
-//        Personaje p = pr.findById(id).get();
-        try{
-//            imgs.delete(p.getImagen());
-//            p.setImagen(null);
-//            pr.delete(p);
-            
+    public void eliminarPersonaje(Integer id) throws Exception{            
+        
+        try {
             pr.deleteById(id);
-            return true;
-        } catch(Exception e){
-            return false;
-        }   
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 }

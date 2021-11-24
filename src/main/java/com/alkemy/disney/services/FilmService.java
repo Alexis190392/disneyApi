@@ -19,23 +19,38 @@ public class FilmService {
     private ImagenService imgs;
     
     @Transactional
-    public Film crearFilm(Film f, MultipartFile image){
-        Imagen i = imgs.save(image);
+    public Film crearFilm(Film f, MultipartFile imagen) throws Exception{
+        Film film = new Film();
+        if(validadPuntos(f.getCalificacion())){
+            film.setCalificacion(f.getCalificacion());
+        } else{
+            throw new Exception("Puntuacion no corresponde.");
+        }
+        if(f.getTitulo() == null){
+            throw new Exception("Ingrese un titulo válido");
+        }      
+        
+        film.setTitulo(f.getTitulo());
+        film.setFecha_creacion(f.getFecha_creacion());
+        film.setGenero(f.getGenero());        
+        
+        Imagen i = imgs.save(imagen);
         f.setImagen(i);
-        return fr.save(f);
+        return fr.save(film);
     }
     
+    
     @Transactional
-    public void modificarFilm(Film f, MultipartFile image){
+    public void modificarFilm(Film f, MultipartFile imagen) throws Exception{
         Film film = fr.findById(f.getFilm_id()).get();
         if(film != null){
             film = f;
-            crearFilm(film,image);
+            crearFilm(film,imagen);
         }         
     }
     
     public List<Film> listAll(){
-        return (List<Film>) fr.findAll();
+        return (List<Film>)fr.findAll();
     }
     
     public Optional<Film> findById(Integer id){
@@ -69,6 +84,14 @@ public class FilmService {
             return fr.orderBy(order);
         }catch (Exception e){
             return listAll();
+        }
+    }
+    
+    public Boolean validadPuntos(Integer puntos){
+        if(puntos <= 5 && puntos >0){
+            return true;
+        } else{
+            return false;
         }
     }
     
